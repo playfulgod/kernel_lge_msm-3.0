@@ -1,0 +1,30 @@
+#!/bin/sh
+#Let's make sure the environment is clean and ready to compile the kernel
+echo
+echo "Cleaning house!!"
+echo
+make mrproper
+echo
+echo "House cleaned, lets build a kernel!!!"
+echo
+#
+# Lets set the kernel defconfig
+echo
+echo "setting defconfig as plague_defconfig"
+echo
+make ARCH=arm lge_iproj-perf_defconfig
+#
+# Let's build a kernel
+echo
+echo "Now compiling kernel, go get a soda! ;)"
+echo
+ARCH=arm CROSS_COMPILE=~/Android/CM9/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi- make -j16
+#
+if [ -f arch/arm/boot/zImage ]; then
+      echo "Plague has been compiled!!! You can find it in arch/arm/boot/zImage"
+else
+	echo
+	echo "Kernel did not compile, please check for errors!!"
+	echo
+fi
+
